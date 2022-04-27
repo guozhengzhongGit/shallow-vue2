@@ -2,7 +2,7 @@ import { observe } from "./observe";
 
 export function initState(vm) {
   const options = vm.$options;
-  console.log(options);
+  // console.log(options);
   // 后续实现 computed、watch、props、methods
   if (options.data) {
     initData(vm);
