@@ -15,7 +15,7 @@ export function stateMixin(Vue) {
   dataDef.get = function () {
     return this._data;
   };
-}
+
 Object.defineProperty(Vue.prototype, "$data", dataDef);
 
 Vue.prototype.$watch = function () {
@@ -23,4 +23,5 @@ Vue.prototype.$watch = function () {
   options = options || {};
   options.user = true;
   return function unwatchFn() {};
+}
 };
