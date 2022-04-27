@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="../dist/vue.js"></script>
   </head>
   <body>
     {{ name }}
-    <script src="../dist/vue.js"></script>
     <div id="app"></div>
     <script>
       const vm = new Vue({
@@ -17,9 +17,16 @@
           return {
             name: "zf",
             age: 13,
+            obj: {
+              address: "北京",
+            },
+            arr: [1, 2, 3, { self: "gzz" }],
           };
         },
       });
+      console.log(vm._data.arr);
+      console.log(vm.arr);
+      vm._data.arr.push({ new: "obj" });
     </script>
   </body>
 </html>
