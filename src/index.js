@@ -1,6 +1,6 @@
 import initMixin from "./init";
 function Vue(options) {
-  this._init(options); // 先进性初始化
+  this._init(options); // 先进行初始化
 }
 
 // 原型方法不止一个 _init，如果所有的方法都写在一个文件里，不利于维护和管理，所以把添加的原型方法都按照文件拆分出去，用分文件管理的方式
