@@ -1,6 +1,8 @@
 import arrPrototype from "./array";
+import Dep from "./dep";
 class Observer {
   constructor(data) {
+    this.dep = new Dep(); // 专门给数组用的
     Object.defineProperty(data, "__ob__", {
       value: this,
       enumerable: false,
@@ -29,16 +31,28 @@ class Observer {
 }
 
 function defineReactive(data, key, value) {
-  observe(value); // 递归劫持属性，data 里传的对象可能不止一层
+  // 这个 value 可能是数组也可能是对象
+  let dep = new Dep();
+
+  // childOb 是 observer 类的实例，即当前这个 value 对应的 observer
+  let childOb = observe(value); // 递归劫持属性，data 里传的对象可能不止一层
   // 属性会全部被劫持重写增加了 get 和 set
   Object.defineProperty(data, key, {
     get() {
+      console.log("取值，触发依赖收集");
+      if (Dep.target) {
+        dep.depend(); // 意味着存储 watcher
+        if (childOb) {
+          childOb.dep.depend(); // 收集了数组的依赖
+        }
+      }
       return value;
     },
     set(newValue) {
       if (newValue !== value) {
         observe(newValue); // 赋予的新值也要观测
         value = newValue;
+        dep.notify();
       }
     },
   });

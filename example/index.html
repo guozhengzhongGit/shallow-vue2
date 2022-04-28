@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="app" style="color: red; background: blue">
-      abc{{name}}{{age}}123
+      abc{{name}}123 当前数字是：{{ age }}
     </div>
     <script>
       const vm = new Vue({
@@ -28,6 +28,11 @@
       // console.log(vm._data.arr);
       // console.log(vm.arr);
       // vm._data.arr.push({ new: "obj" });
+      // 数据变化，自动执行 updateComponent 方法，而这个方法传入了 watcher 类里
+      setTimeout(() => {
+        vm.age = 16;
+        vm.arr.push(999);
+      }, 1000);
     </script>
   </body>
 </html>
