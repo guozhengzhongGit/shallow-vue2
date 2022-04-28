@@ -135,7 +135,7 @@ function genProps(attrs) {
       let obj = {};
       attr.value.split(";").reduce((memo, current) => {
         let [key, value] = current.split(":");
-        memo[key] = value.replace(/\s/g, "");
+        memo[key.replace(/\s/g, "")] = value.replace(/\s/g, "");
         return memo;
       }, obj);
       attr.value = obj;
@@ -146,7 +146,6 @@ function genProps(attrs) {
 }
 
 function genChild(node) {
-  console.log(node);
   if (node.type === 1) {
     return genCode(node);
   } else {
@@ -189,16 +188,13 @@ function genCode(ast) {
 }
 
 export function compileToFunction(template) {
-  console.log(template);
   let ast = parserHTML(template);
-  console.log(ast);
   // 先生成 ast 语法树
   // ast 描述的是语法本身，HTML 里有啥就出现啥
   // 根据 ast 语法树转换为 render 函数
   let code = genCode(ast);
-  // console.log(code);
+  console.log(code);
 
   const render = new Function(`with(this) {return ${code}}`);
-  console.log(render);
   return render;
 }

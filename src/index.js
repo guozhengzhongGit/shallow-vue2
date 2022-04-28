@@ -1,4 +1,6 @@
 import initMixin from "./init";
+import { renderMixin } from "./render";
+import { lifecycleMixin } from "./lifecycle";
 function Vue(options) {
   this._init(options); // 先进行初始化
 }
@@ -8,5 +10,7 @@ function Vue(options) {
 
 initMixin(Vue);
 // 后续再想扩展任何方法，都可以采用这种方式
+renderMixin(Vue);
+lifecycleMixin(Vue);
 
 export default Vue;

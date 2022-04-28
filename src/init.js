@@ -1,5 +1,6 @@
 import { initState } from "./state";
 import { compileToFunction } from "./compiler";
+import { mountComponent } from "./lifecycle";
 export default function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     // console.log(options);
@@ -28,6 +29,6 @@ export default function initMixin(Vue) {
       options.render = render; // 到这里 render 函数就一定存在了
       // render 函数返回虚拟节点，当数据更新，重新调用 render 函数，生成新的虚拟节点，做 diff
     }
-    console.log(options.render);
+    mountComponent(vm, el);
   };
 }
